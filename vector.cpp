@@ -108,8 +108,18 @@ public:
     }
 
     Vector& operator=(const Vector& v) {
-        *this = *v;
-        delete [] v;
+      if(this != v) {
+        size = v.size;
+        capacity = v.capacity;
+        T *temp_array = new T[v.capacity];
+        for (int i = 0;i < v.size;i++) {
+          temp_array[i] = array[i];
+        }
+        delete [] array;
+        array = temp_array;
+      }
+      return *this;
+
     }
 
     void insert(int index, T value) {
